@@ -1,0 +1,58 @@
+general {
+  colors = true
+  color_good = "#a3be8c"
+  color_degraded = "#ebcb8b"
+  color_bad = "#bf616a"
+  interval = 5
+}
+
+order += "disk /"
+order += "cpu_usage"
+order += "ethernet enp0s31f6"
+order += "wireless wlp2s0"
+order += "battery all"
+order += "memory"
+order += "tztime madrid"
+
+disk "/" {
+	format = " %percentage_used"
+}
+
+cpu_usage {
+	format = "%usage"
+}
+
+ethernet enp0s31f6 {
+  format_up = "ﯱ%speed"
+  format_down = ""
+}
+
+wireless wlp2s0 {
+  format_up = "直%quality"
+  format_down = "睊"
+}
+
+battery all {
+  path=/sys/class/power_supply/%d/uevent
+  format = "%percentage%status"
+  status_chr= ⚡ 
+  status_bat= 
+  status_unk= ?
+  status_full= ☻
+  last_full_capacity = true
+  threshold_type=percentage
+  low_threshold=10
+}
+
+memory {
+	memory_used_method = classical
+	format="%used/%available"
+	threshold_degraded= 10% 
+	threshold_critical= 5% 
+	format_degraded="%used/%available"
+}
+
+tztime madrid {
+        format = "%Y/%m/%d %H:%M:%S %Z"
+        timezone = "Europe/Madrid"
+}
